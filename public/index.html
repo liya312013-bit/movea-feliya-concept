@@ -419,7 +419,7 @@ img{max-width:100%;display:block}
  .community--fullbleed{min-height:780px}
  .community--fullbleed .community__visual{min-height:0}
  .community--fullbleed .community__visual img{object-position:51% center}
- .community--fullbleed .community__visual:after{background:linear-gradient(180deg,rgba(23,26,33,.30),rgba(23,26,33,.09) 18%,rgba(23,26,33,.20) 46%,rgba(23,26,33,.34) 88%,rgba(23,26,33,.39))}
+
  .community--fullbleed .community__foreground{min-height:780px;padding-top:60px;padding-bottom:54px;gap:60px}
  .community--fullbleed .community__top .micro{display:none}
  .community--fullbleed .community__content{width:100%;padding:0;min-height:0;gap:24px}
@@ -439,7 +439,7 @@ img{max-width:100%;display:block}
   position:absolute;inset:0;z-index:1;display:block;width:100%;height:100%;
   object-fit:cover;object-position:55% 51%;
   pointer-events:none;opacity:0;
-  transition:opacity .65s ease;
+  transition:none;
 }
 .community--fullbleed .community__visual>.community__video.is-playing{opacity:1}
 .community--fullbleed .community__visual:after{z-index:2}
@@ -873,6 +873,31 @@ img{max-width:100%;display:block}
   .community--fullbleed .community__content h2{font-size:34px}
   .outro__title{font-size:25px}
 }
+
+/* Review improvements: supporting information and accessible media controls. */
+.hero-capsule .hero-category{font-size:16px;line-height:1.4;letter-spacing:.08em;font-weight:600;color:#f2f0f6;margin:0 0 16px;text-shadow:0 1px 8px #191a22}
+.hero-media video.is-manual-playing{display:block!important}
+
+.program.is-open .program__detail{max-height:500px}
+.program__detail p{max-width:680px;margin-bottom:22px}
+.program__detail strong,.trainer__bio strong{color:var(--ink);font-weight:600}
+.trainer__bio{max-width:560px}
+.form-intro,.form-demo{font-size:16px;line-height:1.6;margin:0 0 14px;color:var(--ink-sub);max-width:580px}
+.form-demo{color:var(--quiet);margin-bottom:24px}
+.form-label{font-size:16px;line-height:1.4;color:var(--ink);margin:14px 0 0}
+@media(max-width:700px){
+ .hero-capsule .hero-category{max-width:250px;font-size:16px;margin-bottom:12px;letter-spacing:.035em}
+
+ .program.is-open .program__detail{max-height:650px}
+}
+
+
+/* A single static shade, outside the media layer: no opacity fades on playback. */
+.community--fullbleed .community__visual:after{content:none!important}
+.community-shade{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:1;transition:none;animation:none;background:linear-gradient(90deg,rgba(18,21,28,.76) 0%,rgba(18,21,28,.65) 28%,rgba(18,21,28,.3) 52%,rgba(18,21,28,.02) 80%),linear-gradient(0deg,rgba(18,21,28,.35),transparent 70%)}
+.community--fullbleed .community__visual>.community__video{transition:none;animation:none}
+@media(max-width:700px){.community-shade{background:linear-gradient(90deg,rgba(18,21,28,.72),rgba(18,21,28,.38)),linear-gradient(0deg,rgba(18,21,28,.45),transparent)}}
+
 </style>
 </head>
 <body>
@@ -880,7 +905,7 @@ img{max-width:100%;display:block}
 <section class="hero" id="top" aria-labelledby="hero-title">
   <div class="hero-media">
     <img class="hero-poster" src="/assets/image-9590ab91962a.webp" alt="" aria-hidden="true" width="1690" height="931" decoding="async" fetchpriority="high">
-    <video autoplay muted playsinline loop preload="metadata" poster="/assets/image-9590ab91962a.webp" aria-hidden="true" tabindex="-1">
+    <video id="hero-video" muted playsinline loop preload="metadata" poster="/assets/image-9590ab91962a.webp" aria-hidden="true" tabindex="-1">
       <source src="https://res.cloudinary.com/dokoutdgl/video/upload/f_mp4/v1793028196/Woman_breathing_with_gentle_breeze_20261025173437_qrzd4g.avi" type="video/mp4">
     </video>
   </div>
@@ -899,6 +924,7 @@ img{max-width:100%;display:block}
     </button>
   </header>
   <div class="hero-capsule" aria-label="MOVEA manifesto">
+    <p class="hero-category">FITNESS &amp; WELLNESS CLUB</p>
     <p class="tiny">NOT ABOUT PERFECT.<br>ABOUT SHOWING UP.</p>
     <span class="violet-line" aria-hidden="true"></span>
     <p class="note">Your pace. Your progress.<br>Your kind of strong.</p>
@@ -933,10 +959,10 @@ img{max-width:100%;display:block}
 <section class="training" id="training" aria-labelledby="training-title">
   <div class="container">
    <div class="training__intro"><span class="eyebrow eyebrow-mark">HOW WE MOVE</span><div><h2 class="heading" id="training-title">FIND YOUR<br><span class="accent">KIND OF STRONG.</span></h2><div class="training__hint"><span>Different goals. Different ways to move.</span><span>EXPLORE THE DISCIPLINES ↓</span></div></div></div>
-   <div class="program"><button class="program__button" type="button" aria-expanded="false" aria-controls="prog-strength"><span class="program__title">STRENGTH</span><span class="program__tag">Build strength for real life.<br>Feel stronger every day.</span><span class="program__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span></button><div class="program__detail" aria-hidden="true" id="prog-strength"><p>Find your foundation. Controlled strength work, consistent progress, and room to grow in your own time.</p><a class="program__contact" href="#movea-contact-form" tabindex="-1">EXPLORE A SESSION <span aria-hidden="true">↗</span></a></div></div>
-   <div class="program"><button class="program__button" type="button" aria-expanded="false" aria-controls="prog-functional"><span class="program__title">FUNCTIONAL</span><span class="program__tag">Move better in<br>everyday life.</span><span class="program__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span></button><div class="program__detail" aria-hidden="true" id="prog-functional"><p>Strength, coordination and momentum. Training shaped around how your body actually moves.</p><a class="program__contact" href="#movea-contact-form" tabindex="-1">EXPLORE A SESSION <span aria-hidden="true">↗</span></a></div></div>
-   <div class="program"><button class="program__button" type="button" aria-expanded="false" aria-controls="prog-mobility"><span class="program__title">MOBILITY</span><span class="program__tag">Find freedom in<br>every movement.</span><span class="program__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span></button><div class="program__detail" aria-hidden="true" id="prog-mobility"><p>Move with range and intention. Build ease, balance and freedom beyond the studio.</p><a class="program__contact" href="#movea-contact-form" tabindex="-1">EXPLORE A SESSION <span aria-hidden="true">↗</span></a></div></div>
-   <div class="program rule"><button class="program__button" type="button" aria-expanded="false" aria-controls="prog-recovery"><span class="program__title">RECOVERY</span><span class="program__tag">Slow down. Restore.<br>Come back stronger.</span><span class="program__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span></button><div class="program__detail" aria-hidden="true" id="prog-recovery"><p>Give your body space to reset. Rest and recovery are part of the work, not the opposite of it.</p><a class="program__contact" href="#movea-contact-form" tabindex="-1">EXPLORE A SESSION <span aria-hidden="true">↗</span></a></div></div>
+   <div class="program"><button class="program__button" type="button" aria-expanded="false" aria-controls="prog-strength"><span class="program__title">STRENGTH</span><span class="program__tag">Build strength for real life.<br>Feel stronger every day.</span><span class="program__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span></button><div class="program__detail" aria-hidden="true" id="prog-strength"><p>Build a foundation with coached squats, hinges, pushes and pulls. Start with bodyweight or lighter resistance, then progress as your technique becomes more confident.<br><strong>Best for:</strong> beginners and anyone building everyday strength.<br><strong>Session focus:</strong> technique, controlled repetitions and gradual progression.</p><a class="program__contact" href="#movea-contact-form" tabindex="-1">EXPLORE A SESSION <span aria-hidden="true">↗</span></a></div></div>
+   <div class="program"><button class="program__button" type="button" aria-expanded="false" aria-controls="prog-functional"><span class="program__title">FUNCTIONAL</span><span class="program__tag">Move better in<br>everyday life.</span><span class="program__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span></button><div class="program__detail" aria-hidden="true" id="prog-functional"><p>Combine lifting, carrying, stepping and balance exercises in a varied full-body session. Each movement can be adjusted to your starting point.<br><strong>Best for:</strong> people who enjoy variety and want to move more confidently.<br><strong>Session focus:</strong> coordination, balance and whole-body strength.</p><a class="program__contact" href="#movea-contact-form" tabindex="-1">EXPLORE A SESSION <span aria-hidden="true">↗</span></a></div></div>
+   <div class="program"><button class="program__button" type="button" aria-expanded="false" aria-controls="prog-mobility"><span class="program__title">MOBILITY</span><span class="program__tag">Find freedom in<br>every movement.</span><span class="program__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span></button><div class="program__detail" aria-hidden="true" id="prog-mobility"><p>Explore controlled joint movements, active stretches and steady breathing. Work within a comfortable range rather than forcing a position.<br><strong>Best for:</strong> anyone wanting a gentler session or more variety after time at a desk.<br><strong>Session focus:</strong> range of motion, balance and body awareness.</p><a class="program__contact" href="#movea-contact-form" tabindex="-1">EXPLORE A SESSION <span aria-hidden="true">↗</span></a></div></div>
+   <div class="program rule"><button class="program__button" type="button" aria-expanded="false" aria-controls="prog-recovery"><span class="program__title">RECOVERY</span><span class="program__tag">Slow down. Restore.<br>Come back stronger.</span><span class="program__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span></button><div class="program__detail" aria-hidden="true" id="prog-recovery"><p>Choose a lower-intensity session with gentle movement, relaxed breathing and unhurried stretching between harder training days.<br><strong>Best for:</strong> people looking for a slower pace alongside their usual training.<br><strong>Session focus:</strong> comfortable movement and time to unwind.</p><a class="program__contact" href="#movea-contact-form" tabindex="-1">EXPLORE A SESSION <span aria-hidden="true">↗</span></a></div></div>
    <div class="training__footer"><p class="para">One place to make progress, whatever progress means to you.</p><a class="plain-link" href="#movea-contact-form">FIND YOUR SESSION <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
   </div>
 </section>
@@ -962,7 +988,7 @@ img{max-width:100%;display:block}
         <button class="trainer__action" type="button" aria-expanded="false" aria-controls="trainer-bio-alina">
           <span class="trainer__action__label">VIEW PROFILE</span> <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
         </button>
-        <p class="trainer__bio" id="trainer-bio-alina" hidden>Confident technique, considered progress and strength that stays with you.<span class="trainer__bio-break"></span><a class="trainer__contact" href="#movea-contact-form">START WITH ALINA <span aria-hidden="true">↗</span></a></p>
+        <p class="trainer__bio" id="trainer-bio-alina" hidden>Alina guides strength sessions with clear demonstrations and time to practise each movement. Her focus is helping you feel comfortable with resistance training, from your first squat to a more structured routine.<br><strong>Focus:</strong> lifting technique, full-body strength and gradual progression.<span class="trainer__bio-break"></span><a class="trainer__contact" href="#movea-contact-form">START WITH ALINA <span aria-hidden="true">↗</span></a></p>
       </div>
     </article>
     <article class="trainer trainer--shift">
@@ -978,7 +1004,7 @@ img{max-width:100%;display:block}
         <button class="trainer__action" type="button" aria-expanded="false" aria-controls="trainer-bio-mark">
           <span class="trainer__action__label">VIEW PROFILE</span> <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
         </button>
-        <p class="trainer__bio" id="trainer-bio-mark" hidden>Movement that connects power, balance and everyday confidence.<span class="trainer__bio-break"></span><a class="trainer__contact" href="#movea-contact-form">START WITH MARK <span aria-hidden="true">↗</span></a></p>
+        <p class="trainer__bio" id="trainer-bio-mark" hidden>Mark brings together lifting, carrying and balance work in varied functional sessions. Movements can be simplified or made more challenging so you can work at a level that suits you.<br><strong>Focus:</strong> coordination, full-body movement and practical strength.<span class="trainer__bio-break"></span><a class="trainer__contact" href="#movea-contact-form">START WITH MARK <span aria-hidden="true">↗</span></a></p>
       </div>
     </article>
     <article class="trainer trainer--shift">
@@ -994,7 +1020,7 @@ img{max-width:100%;display:block}
         <button class="trainer__action" type="button" aria-expanded="false" aria-controls="trainer-bio-sofia">
           <span class="trainer__action__label">VIEW PROFILE</span> <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
         </button>
-        <p class="trainer__bio" id="trainer-bio-sofia" hidden>More freedom in the way you move, breathe and recover.<span class="trainer__bio-break"></span><a class="trainer__contact" href="#movea-contact-form">START WITH SOFIA <span aria-hidden="true">↗</span></a></p>
+        <p class="trainer__bio" id="trainer-bio-sofia" hidden>Sofia leads unhurried mobility sessions built around controlled movement and comfortable ranges. Expect clear guidance, active stretching and options for different starting points.<br><strong>Focus:</strong> mobility, balance and mindful movement.<span class="trainer__bio-break"></span><a class="trainer__contact" href="#movea-contact-form">START WITH SOFIA <span aria-hidden="true">↗</span></a></p>
       </div>
     </article>
     <article class="trainer">
@@ -1009,7 +1035,7 @@ img{max-width:100%;display:block}
         <button class="trainer__action" type="button" aria-expanded="false" aria-controls="trainer-bio-leo">
           <span class="trainer__action__label">VIEW PROFILE</span> <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
         </button>
-        <p class="trainer__bio" id="trainer-bio-leo" hidden>A measured approach to recovery, resilience and feeling your best.<span class="trainer__bio-break"></span><a class="trainer__contact" href="#movea-contact-form">START WITH LEO <span aria-hidden="true">↗</span></a></p>
+        <p class="trainer__bio" id="trainer-bio-leo" hidden>Leo takes a lower-intensity approach to movement between harder training days. Sessions combine gentle mobility, relaxed breathing and time to slow down.<br><strong>Focus:</strong> active recovery, easy movement and pacing.<span class="trainer__bio-break"></span><a class="trainer__contact" href="#movea-contact-form">START WITH LEO <span aria-hidden="true">↗</span></a></p>
       </div>
     </article>
     </div>
@@ -1017,7 +1043,8 @@ img{max-width:100%;display:block}
 </section>
 
 <section class="community community--fullbleed" id="community" aria-labelledby="community-title">
- <div class="community__visual photo-reveal" aria-hidden="true"><img src="/assets/image-805e0eb78bf0.webp" alt="A welcoming indoor cycling class with people of varied fitness levels, coached beside panoramic mountain and lake views" width="1672" height="941" loading="lazy" decoding="async"><video class="community__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"><source data-src="https://res.cloudinary.com/dokoutdgl/video/upload/f_mp4/v1793028198/Animate_cycling_studio_scene_20261026023844_v6syhc.avi" type="video/mp4"></video></div>
+ <div class="community__visual" aria-hidden="true"><img src="/assets/image-805e0eb78bf0.webp" alt="A welcoming indoor cycling class with people of varied fitness levels, coached beside panoramic mountain and lake views" width="1672" height="941" loading="lazy" decoding="async"><video id="community-video" class="community__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"><source data-src="https://res.cloudinary.com/dokoutdgl/video/upload/f_mp4/v1793028198/Animate_cycling_studio_scene_20261026023844_v6syhc.avi" type="video/mp4"></video></div>
+ <div class="community-shade" aria-hidden="true"></div>
  <div class="container community__foreground">
    <div class="community__top"><span class="eyebrow eyebrow-mark">THE PEOPLE</span></div>
    <div class="community__content">
@@ -1041,10 +1068,12 @@ img{max-width:100%;display:block}
       </div>
       <div class="outro__form-wrap">
         <!-- Concept portfolio form: intentionally no backend; the on-submit message confirms nothing is transmitted. -->
-<form class="outro__form" id="movea-contact-form">
-          <label class="sr-only" for="movea-name">Name</label>
+<p class="form-intro">Start with a conversation about your goals and a suitable first session.</p>
+<p class="form-demo" id="form-demo-note">Portfolio demo: this form does not send or store your details.</p>
+<form class="outro__form" id="movea-contact-form" aria-describedby="form-demo-note">
+          <label class="form-label" for="movea-name">Name</label>
           <input id="movea-name" name="name" type="text" placeholder="Name" autocomplete="name" maxlength="80" required>
-          <label class="sr-only" for="movea-phone">Telephone</label>
+          <label class="form-label" for="movea-phone">Telephone</label>
           <input id="movea-phone" name="phone" type="tel" placeholder="Telephone" autocomplete="tel" maxlength="30" required>
           <button class="outro__submit" type="submit">START YOUR JOURNEY <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.6"/></svg></button>
           <p class="outro__form-message" id="movea-form-message" role="status" aria-live="polite" hidden>This is a portfolio concept. No information has been sent.</p>
@@ -1094,15 +1123,8 @@ document.querySelectorAll('.trainer__action').forEach(button=>{
   });
 });
 
- // Avoid playing a hidden hero video: preserve resources and stop on reduced motion.
- const video=document.querySelector('.hero-media video');
+ // Respect reduced motion for heading reveals.
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
- if(video){
-  const observer=new IntersectionObserver(entries=>{
-   const shouldPlay=entries[0].isIntersecting&&!reduced.matches;
-   if(shouldPlay)video.play().catch(()=>{});else video.pause();
-  },{threshold:.1});observer.observe(video);
- }
  // Motion emphasizes the typography without hiding content on slow devices.
  if(!reduced.matches){
    const headings=document.querySelectorAll('.statement__headline,.space__headline .heading,.training__intro .heading,.trainers__heading h2,.community__content h2,.outro__title');
@@ -1130,23 +1152,25 @@ document.querySelectorAll('.trainer__action').forEach(button=>{
 </script>
 
 <script>
-/* The People: conserve resources offscreen and honor reduced-motion preferences. */
+/* Background playback; reduced motion remains respected. */
 (()=>{
- const video=document.querySelector('.community--fullbleed .community__video');
- if(!video)return;
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
- let onscreen=false;
- video.addEventListener('playing',()=>video.classList.add('is-playing'));
- video.addEventListener('error',()=>video.classList.remove('is-playing'));
- function sync(){
-   if(onscreen&&!reduced.matches){
-     const source=video.querySelector('source[data-src]');
-     if(source){source.src=source.dataset.src;source.removeAttribute('data-src');video.load()}
-     video.play().catch(()=>video.classList.remove('is-playing'))}
-   else{video.pause();if(reduced.matches)video.classList.remove('is-playing')}
- }
- new IntersectionObserver(entries=>{onscreen=entries[0].isIntersecting;sync()},{threshold:.08}).observe(video);
- reduced.addEventListener?.('change',sync);
+ document.querySelectorAll('#hero-video,#community-video').forEach(video=>{
+  let onscreen=false;
+  function sync(){
+   if(onscreen&&!document.hidden&&!reduced.matches){
+    const source=video.querySelector('source[data-src]');
+    if(source){source.src=source.dataset.src;source.removeAttribute('data-src');video.load()}
+    if(video.paused)video.play().catch(()=>{});
+   }else if(!video.paused)video.pause();
+  }
+  // Once decoded, keep the video visible through pauses and loop boundaries.
+  video.addEventListener('loadeddata',()=>video.classList.add('is-playing'),{once:true});
+  video.addEventListener('error',()=>video.classList.remove('is-playing'));
+  new IntersectionObserver(entries=>{onscreen=entries[0].isIntersecting;sync()},{threshold:0,rootMargin:'120px 0px'}).observe(video);
+  reduced.addEventListener('change',sync);
+  document.addEventListener('visibilitychange',sync);
+ });
 })();
 </script>
 
